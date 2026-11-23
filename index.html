@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pâtisserie Moutet — Vieux Nice</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='31' fill='%2316558F'/%3E%3Ccircle cx='32' cy='32' r='27.5' fill='none' stroke='%23EFECE6' stroke-width='1.5'/%3E%3Ctext x='32' y='40.5' text-anchor='middle' fill='%23EFECE6' font-family='Georgia, serif' font-weight='bold' font-size='25' letter-spacing='1'%3EPM%3C/text%3E%3C/svg%3E">
+  
+  <!-- Classical Parisian Editorial Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Montserrat:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-cream: #FAF6F0;
+      --bg-alabaster: #F2EBE1;
+      --ink-charcoal: #22201E;
+      --ink-muted: #5C5650;
+      --gold-accent: #B38B59;
+      --gold-light: rgba(179, 139, 89, 0.25);
+      --border-hairline: #DED5C8;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Montserrat', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-cream);
+      color: var(--ink-charcoal);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-weight: 300;
+      line-height: 1.75;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Classical Parisian Double-Frame Page Border */
+    .page-frame {
+      border: 1px solid var(--border-hairline);
+      margin: 14px;
+      position: relative;
+    }
+
+    @media (min-width: 768px) {
+      .page-frame {
+        margin: 24px;
+      }
+    }
+
+    /* Typography Helpers */
+    h1, h2, h3, .serif {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    .eyebrow {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold-accent);
+      display: block;
+      margin-bottom: 0.9rem;
+    }
+
+    /* Ornamental Divider */
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 2.5rem auto;
+      color: var(--gold-accent);
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+    }
+
+    .ornament::before,
+    .ornament::after {
+      content: "";
+      height: 1px;
+      width: 55px;
+      background-color: var(--gold-accent);
+      opacity: 0.5;
+    }
+
+    /* Navigation */
+    header {
+      padding: 1.75rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .brand-mark {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--ink-charcoal);
+      text-decoration: none;
+    }
+
+    nav {
+      display: none;
+      gap: 2.2rem;
+    }
+
+    @media (min-width: 768px) {
+      nav {
+        display: flex;
+      }
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--ink-muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--gold-accent);
+    }
+
+    /* Hero Section */
+    .hero {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 4.5rem 1.5rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    @media (min-width: 900px) {
+      .hero {
+        grid-template-columns: 1.05fr 0.95fr;
+        padding: 6rem 2.5rem 6.5rem;
+      }
+    }
+
+    .hero-text {
+      text-align: center;
+    }
+
+    @media (min-width: 900px) {
+      .hero-text {
+        text-align: left;
+      }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 5vw, 4.3rem);
+      line-height: 1.08;
+      margin-bottom: 1.2rem;
+      color: var(--ink-charcoal);
+    }
+
+    .hero-motto {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+      color: var(--ink-muted);
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      color: var(--ink-muted);
+      max-width: 480px;
+      margin: 0 auto 2.2rem;
+    }
+
+    @media (min-width: 900px) {
+      .hero-desc {
+        margin: 0 0 2.2rem;
+      }
+    }
+
+    .cta-link {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      border: 1px solid var(--gold-accent);
+      color: var(--ink-charcoal);
+      text-decoration: none;
+      font-size: 0.74rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: all 0.35s ease;
+    }
+
+    .cta-link:hover {
+      background-color: var(--gold-accent);
+      color: #FFF;
+    }
+
+    /* Parisian Arch Image Framing (IMAGE 1: HERO) */
+    .arch-frame {
+      position: relative;
+      max-width: 440px;
+      margin: 0 auto;
+      padding: 12px;
+      border: 1px solid var(--gold-accent);
+      border-radius: 240px 240px 4px 4px;
+    }
+
+    .arch-frame img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      display: block;
+      border-radius: 230px 230px 2px 2px;
+      filter: contrast(0.98) saturate(0.95);
+    }
+
+    .image-caption {
+      text-align: center;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.92rem;
+      color: var(--ink-muted);
+      margin-top: 0.85rem;
+    }
+
+    /* Section Containers */
+    section {
+      padding: 5rem 1.5rem;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    /* Story Section */
+    .story-section {
+      background-color: var(--bg-alabaster);
+      border-top: 1px solid var(--border-hairline);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    @media (min-width: 860px) {
+      .story-grid {
+        grid-template-columns: 0.9fr 1.1fr;
+      }
+    }
+
+    /* Editorial Framed Portrait (IMAGE 2: THE STORY / CRAFT) */
+    .editorial-frame {
+      padding: 10px;
+      background-color: var(--bg-cream);
+      border: 1px solid var(--border-hairline);
+      box-shadow: 0 12px 30px rgba(34, 32, 30, 0.04);
+    }
+
+    .editorial-frame img {
+      width: 100%;
+      height: 440px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .story-content h2 {
+      font-size: clamp(2.1rem, 3.5vw, 2.8rem);
+      line-height: 1.18;
+      margin-bottom: 1.4rem;
+    }
+
+    .story-content p {
+      font-size: 0.96rem;
+      color: var(--ink-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-top: 1.6rem;
+      border-top: 1px solid var(--border-hairline);
+      text-align: center;
+    }
+
+    .pillar-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      color: var(--ink-charcoal);
+      display: block;
+    }
+
+    .pillar-sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold-accent);
+    }
+
+    /* Creations & Gallery Section */
+    .creations-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .creations-header h2 {
+      font-size: clamp(2.1rem, 3.5vw, 2.8rem);
+      margin-bottom: 1rem;
+    }
+
+    .creations-header p {
+      color: var(--ink-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Two-Image Showcase (IMAGES 3 & 4) */
+    .duo-gallery {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      margin-bottom: 4rem;
+    }
+
+    @media (min-width: 768px) {
+      .duo-gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .gallery-card {
+      border: 1px solid var(--border-hairline);
+      padding: 12px;
+      background: #FFFDFB;
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 360px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Classical French Menu Carte */
+    .carte-box {
+      border: 1px solid var(--gold-accent);
+      padding: 2.5rem 1.8rem;
+      background-color: #FFFDFB;
+      position: relative;
+    }
+
+    @media (min-width: 768px) {
+      .carte-box {
+        padding: 3.5rem 4rem;
+      }
+    }
+
+    .carte-title {
+      text-align: center;
+      font-size: 1.9rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .carte-subtitle {
+      text-align: center;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--ink-muted);
+      margin-bottom: 2.5rem;
+    }
+
+    .carte-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.2rem 3.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .carte-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .carte-category h3 {
+      font-size: 1.3rem;
+      color: var(--gold-accent);
+      border-bottom: 1px solid var(--border-hairline);
+      padding-bottom: 0.4rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .carte-category p {
+      font-size: 0.9rem;
+      color: var(--ink-muted);
+      line-height: 1.7;
+    }
+
+    .carte-note {
+      text-align: center;
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-hairline);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--ink-charcoal);
+    }
+
+    /* Visit & Practical Details */
+    .visit-section {
+      background-color: var(--bg-alabaster);
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    .visit-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .visit-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .visit-col {
+      padding: 1.5rem;
+      border: 1px solid var(--border-hairline);
+      background-color: var(--bg-cream);
+    }
+
+    .visit-col h3 {
+      font-size: 1.45rem;
+      margin-bottom: 1rem;
+      color: var(--ink-charcoal);
+    }
+
+    .visit-col p {
+      font-size: 0.9rem;
+      color: var(--ink-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .visit-col strong {
+      font-weight: 500;
+      color: var(--ink-charcoal);
+    }
+
+    /* Footer & Social Buttons */
+    footer {
+      text-align: center;
+      padding: 4.5rem 1.5rem 4rem;
+      background-color: var(--bg-cream);
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    /* Crafted Bespoke SVG Logo Emblem */
+    .footer-logo-wrap {
+      max-width: 310px;
+      margin: 0 auto 1.6rem;
+      padding: 6px;
+      border-radius: 50%;
+      border: 1px solid var(--gold-accent);
+      background-color: #16558F;
+      box-shadow: 0 10px 26px rgba(22, 85, 143, 0.14);
+    }
+
+    .footer-logo-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .footer-brand {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .footer-sub {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--ink-muted);
+      margin-bottom: 2.2rem;
+    }
+
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.85rem 1.8rem;
+      border: 1px solid var(--ink-charcoal);
+      color: var(--ink-charcoal);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .social-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    .social-btn:hover {
+      background-color: var(--ink-charcoal);
+      color: var(--bg-cream);
+    }
+
+    .copyright {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* Subtle Scroll Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-frame">
+    <!-- Top Header -->
+    <header>
+      <a href="#" class="brand-mark">PÂTISSERIE MOUTET</a>
+      <nav>
+        <a href="#histoire">Notre Histoire</a>
+        <a href="#creations">Créations</a>
+        <a href="#visite">Nous Trouver</a>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-text reveal">
+        <span class="eyebrow">Vieux Nice • 7 Rue du Collet</span>
+        <h1>Pâtisserie Moutet</h1>
+        <p class="hero-motto">« Pâtisserie fine de la tradition française avec une touche d'Orient »</p>
+        <p class="hero-desc">
+          Tucked along a quiet, historic lane in Old Nice, our boutique pairs classic French pastry architecture with delicate Asian notes—crafted by hand each morning in small batches.
+        </p>
+        <a href="#histoire" class="cta-link">Discover Our Story</a>
+      </div>
+
+      <!-- IMAGE 1: Local file in same folder (Boutique counter / vitrine) -->
+      <div class="reveal">
+        <div class="arch-frame">
+          <img src="image_179f06.jpg" alt="Pâtisserie Moutet artisanal display in Vieux Nice">
+        </div>
+        <p class="image-caption">7 Rue du Collet — In the heart of Vieux Nice</p>
+      </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="histoire" class="story-section">
+      <div class="container">
+        <div class="story-grid">
+          <!-- IMAGE 2: Kept as requested -->
+          <div class="reveal">
+            <div class="editorial-frame">
+              <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80" alt="Handcrafted French pastry making">
+            </div>
+            <p class="image-caption">Small-batch craftsmanship by Gaël &amp; Sara Moutet</p>
+          </div>
+
+          <div class="story-content reveal">
+            <span class="eyebrow">Notre Histoire</span>
+            <h2>Two Worlds, One Artisanal Table</h2>
+            <p>
+              Opened in December 2022 by pastry chef <strong>Gaël Moutet</strong> and his wife <strong>Sara</strong>, Pâtisserie Moutet was born from a simple devotion: honoring the precision of French haute pâtisserie while weaving in subtle flavors from Gaël’s international journey across Asia.
+            </p>
+            <p>
+              Every pastry is 100% handmade on-site in limited daily quantities. By gently reducing sugar and working with seasonal Riviera harvests—such as local citrus and strawberries from La Gaude—alongside Valrhona chocolate and zero artificial colorings, each creation lets pure ingredients speak for themselves.
+            </p>
+            <p>
+              Inside our bright, minimalist boutique, Sara welcomes guests with warmth and freshly baked savory quiches, turning a brief stop in Old Town into a memorable ritual.
+            </p>
+
+            <div class="pillars">
+              <div>
+                <span class="pillar-title">100% Artisanal</span>
+                <span class="pillar-sub">Made On-Site</span>
+              </div>
+              <div>
+                <span class="pillar-title">Less Sugar</span>
+                <span class="pillar-sub">Pure Balance</span>
+              </div>
+              <div>
+                <span class="pillar-title">Seasonal</span>
+                <span class="pillar-sub">Zero Additives</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Creations & Visual Gallery -->
+    <section id="creations">
+      <div class="container">
+        <div class="creations-header reveal">
+          <span class="eyebrow">La Carte &amp; L'Atelier</span>
+          <h2>French Tradition, Subtle Orient</h2>
+          <p>
+            Our counter changes with the seasons and the morning's inspiration—from crisp viennoiserie at dawn to delicate entremets and Uji matcha confections.
+          </p>
+        </div>
+
+        <!-- IMAGES 3 & 4: Dual Showcase -->
+        <div class="duo-gallery reveal">
+          <div class="gallery-card">
+            <!-- IMAGE 3: Local file in same folder (Boutique counter & viennoiserie) -->
+            <img src="image_31ee79.jpg" alt="Morning viennoiserie and savory counter display">
+            <p class="image-caption">Morning Viennoiserie, Croques &amp; House Pain de Mie</p>
+          </div>
+
+          <div class="gallery-card">
+            <!-- IMAGE 4: Local file in same folder (Fresh Riviera citrus harvest) -->
+            <img src="image_31ee99.jpg" alt="Fresh local lemons and citrus harvest">
+            <p class="image-caption">Crafted with Fresh Riviera Citrus &amp; Seasonal Fruits</p>
+          </div>
+        </div>
+
+        <div class="ornament">✦</div>
+
+        <!-- Classical French Menu Card -->
+        <div class="carte-box reveal">
+          <h3 class="carte-title">Les Incontournables</h3>
+          <p class="carte-subtitle">A glimpse of our rotating daily selection</p>
+
+          <div class="carte-grid">
+            <div class="carte-category">
+              <h3>Signatures d'Orient</h3>
+              <p>
+                Matcha roll cake, yuzu-raspberry-matcha choux, pineapple pangkour, and seasonal entremets infused with rose, lychee, or pistachio.
+              </p>
+            </div>
+
+            <div class="carte-category">
+              <h3>Classiques Français</h3>
+              <p>
+                Regional Côte d'Azur lemon tart, Madagascar vanilla flan beauvaisien, tiramisu &amp; chocolate éclairs, chestnut tart, and Valrhona madeleines.
+              </p>
+            </div>
+
+            <div class="carte-category">
+              <h3>Viennoiserie &amp; Salé</h3>
+              <p>
+                Flaky croissants, kouign-amann, Italian pistachio brioche, apple or pear-chocolate chaussons, house pain de mie, and Sara’s warm daily quiches.
+              </p>
+            </div>
+
+            <div class="carte-category">
+              <h3>Chocolats &amp; Glaces Maison</h3>
+              <p>
+                Tasting chocolates with Japanese Uji matcha, gyokuro, and hojicha, alongside small-batch seasonal ice creams in pandan, hojicha, and asam boi.
+              </p>
+            </div>
+          </div>
+
+          <p class="carte-note">
+            “Because every batch is crafted in limited numbers each morning, we invite you to visit early before our daily creations sell out.”
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visit & Logistics -->
+    <section id="visite" class="visit-section">
+      <div class="container">
+        <div class="creations-header reveal">
+          <span class="eyebrow">Informations Pratiques</span>
+          <h2>Visit the Boutique</h2>
+        </div>
+
+        <div class="visit-grid reveal">
+          <div class="visit-col">
+            <h3>L'Adresse</h3>
+            <p><strong>7 Rue du Collet</strong><br>06300 Nice, France (Vieux Nice)</p>
+            <p>Tram Line 1: <em>Cathédrale – Vieille Ville</em></p>
+            <p>Tel: +33 4 93 80 18 41</p>
+          </div>
+
+          <div class="visit-col">
+            <h3>Horaires</h3>
+            <p><strong>Mon, Tue, Fri, Sat:</strong><br>9:30 AM – 6:00 PM</p>
+            <p><strong>Sunday:</strong><br>9:30 AM – 1:00 PM</p>
+            <p><strong>Wed &amp; Thu:</strong> Closed</p>
+          </div>
+
+          <div class="visit-col">
+            <h3>La Boutique</h3>
+            <p>Intimate takeaway &amp; pickup boutique designed for a sweet stroll through Old Town.</p>
+            <p>Cards &amp; contactless mobile payments accepted.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer with Crafted Vector Logo & Social Buttons -->
+    <footer>
+      <div class="footer-logo-wrap" aria-label="Pâtisserie Moutet — 7, Rue du Collet, Nice">
+        <svg class="footer-logo-svg" viewBox="0 0 420 290" xmlns="http://www.w3.org/2000/svg" role="img">
+          <!-- Royal Blue Oval Medallion -->
+          <ellipse cx="210" cy="145" rx="204" ry="139" fill="#16558F" />
+          <!-- Double Concentric Off-White Border Rings -->
+          <ellipse cx="210" cy="145" rx="193" ry="128" fill="none" stroke="#EFECE6" stroke-width="1.8" />
+          <ellipse cx="210" cy="145" rx="186" ry="121" fill="none" stroke="#EFECE6" stroke-width="1.2" />
+
+          <!-- Symmetrical Ornamental Flourish / Arabesque Crest -->
+          <g fill="#EFECE6" stroke="#EFECE6" stroke-linecap="round">
+            <!-- Left Scroll -->
+            <path d="M204 78 C194 78, 186 72, 186 63 C186 55, 193 50, 200 52 C205 53, 207 58, 204 62 C201 65, 196 63, 197 59" fill="none" stroke-width="4.2" />
+            <path d="M187 74 C174 75, 162 68, 163 59 C164 52, 173 51, 178 56 C181 59, 179 64, 175 64" fill="none" stroke-width="3.6" />
+            <path d="M183 62 C175 56, 173 47, 180 44 C185 42, 190 47, 188 52" fill="none" stroke-width="3.2" />
+            <path d="M205 83 C191 87, 176 85, 165 78 C177 81, 192 81, 204 78 Z" stroke="none" />
+
+            <!-- Right Scroll (Mirrored) -->
+            <g transform="translate(420, 0) scale(-1, 1)">
+              <path d="M204 78 C194 78, 186 72, 186 63 C186 55, 193 50, 200 52 C205 53, 207 58, 204 62 C201 65, 196 63, 197 59" fill="none" stroke-width="4.2" />
+              <path d="M187 74 C174 75, 162 68, 163 59 C164 52, 173 51, 178 56 C181 59, 179 64, 175 64" fill="none" stroke-width="3.6" />
+              <path d="M183 62 C175 56, 173 47, 180 44 C185 42, 190 47, 188 52" fill="none" stroke-width="3.2" />
+              <path d="M205 83 C191 87, 176 85, 165 78 C177 81, 192 81, 204 78 Z" stroke="none" />
+            </g>
+          </g>
+
+          <!-- Main Brand Typography -->
+          <text x="210" y="138" text-anchor="middle" fill="#EFECE6" font-family="'Cormorant Garamond', Georgia, serif" font-size="44" font-weight="600" letter-spacing="1.5">
+            PÂTISSERIE
+          </text>
+          <text x="210" y="181" text-anchor="middle" fill="#EFECE6" font-family="'Cormorant Garamond', Georgia, serif" font-size="44" font-weight="600" letter-spacing="1.8">
+            MOUTET
+          </text>
+
+          <!-- Cursive Address Subtext -->
+          <text x="210" y="216" text-anchor="middle" fill="#EFECE6" font-family="'Pinyon Script', 'Cormorant Garamond', cursive" font-style="italic" font-size="25" letter-spacing="0.6">
+            7, Rue du Collet, Nice
+          </text>
+        </svg>
+      </div>
+
+      <h2 class="footer-brand">Pâtisserie Moutet</h2>
+      <p class="footer-sub">Follow our weekly seasonal creations &amp; daily counter updates</p>
+
+      <div class="social-buttons">
+        <!-- Instagram Button -->
+        <a href="https://www.instagram.com/patisseriemoutet/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Pâtisserie Moutet on Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+          Instagram
+        </a>
+
+        <!-- Facebook Button -->
+        <a href="https://www.facebook.com/patisserie7rueducollet/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Pâtisserie Moutet on Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+          </svg>
+          Facebook
+        </a>
+      </div>
+
+      <p class="copyright">7 Rue du Collet, 06300 Nice • Artisanal French &amp; Asian-Inspired Pâtisserie</p>
+    </footer>
+  </div>
+
+  <!-- Minimal JS for Gentle Scroll Reveal -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const reveals = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      reveals.forEach((el) => observer.observe(el));
+    });
+  </script>
+</body>
+</html>
